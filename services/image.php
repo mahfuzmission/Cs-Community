@@ -1,0 +1,32 @@
+<?php/*
+	echo "ok";
+	$src = $_FILES['img']['tmp_name'];
+    $dest = $_FILES['img']['name'];
+	$date = date("YmdHms");
+	mkdir($date,0777,true);
+	$pathinfo = pathinfo($date."//".$dest);
+	$path = $date."/".date("mdYHis").$pathinfo['basename'];
+	
+	
+	$rename = $pathinfo['dirname']."//".date("mdYHis").$pathinfo['basename'];
+	
+    if(move_uploaded_file($src, $rename)){
+		echo $path;
+	}
+	*/
+	$target_dir = "uploads/";
+	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$uploadOk = 1;
+	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	// Check if image file is a actual image or fake image
+	if(isset($_POST["submit"])) {
+		$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+		if($check !== false) {
+			echo "File is an image - " . $check["mime"] . ".";
+			$uploadOk = 1;
+		} else {
+			echo "File is not an image.";
+			$uploadOk = 0;
+		}
+	}
+?>
